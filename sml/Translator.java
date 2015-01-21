@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.lang.Class;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
+
 
 /*
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
@@ -76,13 +82,25 @@ public class Translator {
 		int s1; // Possible operands of the instruction
 		int s2;
 		int r;
-		int x;
+
 		String str1;
 
 		if (line.equals(""))
 			return null;
 
 		String ins = scan();
+		
+		try {
+		
+			Class<?> instructionClass = Class.forName(ins);
+			System.out.println(instructionClass.getName());
+			
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		/* 
 		switch (ins) {
 		case "add":
 			r = scanInt();
@@ -116,8 +134,9 @@ public class Translator {
 			str1 = scan();
 			return new BnzInstruction(label, r, str1);
 		}
-
+		*/
 		return null;
+		
 	}
 
 	/*
