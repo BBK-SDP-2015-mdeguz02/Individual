@@ -9,8 +9,7 @@ import java.lang.Class;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
-
+import java.lang.StringBuilder;
 
 /*
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
@@ -91,10 +90,20 @@ public class Translator {
 		String ins = scan();
 		
 		try {
-		
-			Class<?> instructionClass = Class.forName(ins);
-			System.out.println(instructionClass.getName());
+			System.out.println(ins);
 			
+			ins = "sml." + ins.substring(0,1).toUpperCase() + ins.substring(1) + "Instruction";
+			Class<?> instructionClass = Class.forName(ins);
+			Constructor<?>[] constructors = instructionClass.getConstructors();
+			
+			// There are two constructors per class, a default and 'the one we want...'
+			
+			Constructor<?> classConstructor = constructors[1];
+			int numOfParameters = classConstructor.getParameterCount();
+			System.out.println("Number of parameters: " + numOfParameters);
+			
+			
+
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
