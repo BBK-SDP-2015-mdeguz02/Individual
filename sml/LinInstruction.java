@@ -3,7 +3,7 @@ package sml;
 /**
  * This class ....
  * 
- * @author someone
+ * @author Michael De Guzman
  */
 
 public class LinInstruction extends Instruction {
