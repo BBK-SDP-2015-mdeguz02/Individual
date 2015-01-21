@@ -3,7 +3,7 @@ package sml;
 /**
  * This class is the superclass of the classes for machine instructions
  * 
- * @author someone
+ * @author Michael De Guzman
  */
 
 public abstract class Instruction {
@@ -19,7 +19,6 @@ public abstract class Instruction {
 	}
 
 	// = the representation "label: opcode" of this Instruction
-
 	@Override
 	public String toString() {
 		return label + ": " + opcode;

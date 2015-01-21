@@ -9,9 +9,9 @@ import lombok.Data;
  */
 @Data
 public class Machine {
+	
 	// The labels in the SML program, in the order in which
 	// they appear (are defined) in the program
-
 	private Labels labels;
 
 	// The SML program, consisting of prog.size() instructions, each
@@ -23,9 +23,8 @@ public class Machine {
 
 	// The program counter; it contains the index (in prog) of
 	// the next instruction to be executed.
-
-	private int pc;
-
+	private int pc; 
+	
 	{
 		labels = new Labels();
 		prog = new ArrayList<>();
@@ -60,7 +59,7 @@ public class Machine {
 	}
 
 	// Execute the program in prog, beginning at instruction 0.
-	// Precondition: the program and its labels have been store properly.
+	// Precondition: the program and its labels have been stored properly.
 
 	public void execute() {
 		setPc(0);
