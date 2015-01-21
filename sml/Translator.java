@@ -7,9 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.lang.Class;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.StringBuilder;
+import java.lang.reflect.InvocationTargetException;
 
 /*
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
@@ -78,12 +76,6 @@ public class Translator {
 	// removed. Translate line into an instruction with label label
 	// and return the instruction
 	public Instruction getInstruction(String label) {
-		int s1; // Possible operands of the instruction
-		int s2;
-		int r;
-
-		String str1;
-
 		if (line.equals(""))
 			return null;
 
@@ -97,53 +89,40 @@ public class Translator {
 			Constructor<?>[] constructors = instructionClass.getConstructors();
 			
 			// There are two constructors per class, a default and 'the one we want...'
+			// First parameter is always label, followed by a series of integers/strings
 			
 			Constructor<?> classConstructor = constructors[1];
 			int numOfParameters = classConstructor.getParameterCount();
-			System.out.println("Number of parameters: " + numOfParameters);
+						
+			Class<?>[] parameterTypes = classConstructor.getParameterTypes();
 			
-			
+			Object[] parametersToPass = new Object[numOfParameters];
 
+			parametersToPass[0] = label;
+			
+			for (int i = 1; i < numOfParameters; i++) {
+				System.out.println("current i: " + i);
+				if (parameterTypes[i].equals(java.lang.String.class))
+					parametersToPass[i] = scan();
+				else
+					parametersToPass[i] = scanInt();
+			}
+		
+			return (Instruction) classConstructor.newInstance(parametersToPass);
+			
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		/* 
-		switch (ins) {
-		case "add":
-			r = scanInt();
-			s1 = scanInt();
-			s2 = scanInt();
-			return new AddInstruction(label, r, s1, s2);
-		case "sub":
-			r = scanInt();
-			s1 = scanInt();
-			s2 = scanInt();
-			return new SubInstruction(label, r, s1, s2);
-		case "mul":
-			r = scanInt();
-			s1 = scanInt();
-			s2 = scanInt();
-			return new MulInstruction(label, r, s1, s2);
-		case "div":
-			r = scanInt();
-			s1 = scanInt();
-			s2 = scanInt();
-			return new DivInstruction(label, r, s1, s2);
-		case "out":
-			r = scanInt();
-			return new OutInstruction(label, r);
-		case "lin":
-			r = scanInt();
-			s1 = scanInt();
-			return new LinInstruction(label, r, s1);
-		case "bnz":
-			r = scanInt();
-			str1 = scan();
-			return new BnzInstruction(label, r, str1);
+		catch (InstantiationException e) {
+			e.printStackTrace();
 		}
-		*/
+		catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		catch (InvocationTargetException e) {
+			e. printStackTrace();
+		}
 		return null;
 		
 	}

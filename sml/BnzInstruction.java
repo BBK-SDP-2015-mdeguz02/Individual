@@ -11,12 +11,12 @@ public class BnzInstruction extends Instruction {
 	private int register;
 	private String nextInstruction;
 
-	public BnzInstruction(String label, String op) {
-		super(label, op);
+	public BnzInstruction(String label, String opcode) {
+		super(label, opcode);
 	}
 
 	public BnzInstruction(String label, int register, String nextInstruction) {
-		this(label, "add");
+		this(label, "bnz");
 		this.register = register;
 		this.nextInstruction = nextInstruction;
 	}
