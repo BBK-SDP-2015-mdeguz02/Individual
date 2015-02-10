@@ -1,7 +1,8 @@
 package sml;
 
 /**
- * This class adds two numbers and stores in result register
+ * If the contents of register s1 is not zero, then make the statement labeled
+ * L2 the next one to execute
  * 
  * @author Michael De Guzman
  */

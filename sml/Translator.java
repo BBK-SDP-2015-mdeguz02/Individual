@@ -82,8 +82,6 @@ public class Translator {
 		String ins = scan();
 		
 		try {
-			System.out.println(ins);
-			
 			ins = "sml." + ins.substring(0,1).toUpperCase() + ins.substring(1) + "Instruction";
 			Class<?> instructionClass = Class.forName(ins);
 			Constructor<?>[] constructors = instructionClass.getConstructors();
@@ -93,7 +91,7 @@ public class Translator {
 			
 			Constructor<?> classConstructor = constructors[1];
 			int numOfParameters = classConstructor.getParameterCount();
-						
+			
 			Class<?>[] parameterTypes = classConstructor.getParameterTypes();
 			
 			Object[] parametersToPass = new Object[numOfParameters];
@@ -101,13 +99,13 @@ public class Translator {
 			parametersToPass[0] = label;
 			
 			for (int i = 1; i < numOfParameters; i++) {
-				System.out.println("current i: " + i);
 				if (parameterTypes[i].equals(java.lang.String.class))
 					parametersToPass[i] = scan();
 				else
 					parametersToPass[i] = scanInt();
 			}
-		
+			
+			
 			return (Instruction) classConstructor.newInstance(parametersToPass);
 			
 		}
