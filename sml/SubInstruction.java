@@ -1,12 +1,13 @@
 package sml;
 
 /**
- * This class subtracts two numbers and stores in result register
+ * This class subtracts two numbers and stores in specified result register
  * 
  * @author Michael De Guzman
  */
 
 // Lots of code duplication - can SubInstruction extend AddInstruction?
+// Consider refactoring code
 
 public class SubInstruction extends Instruction {
 

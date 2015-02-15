@@ -82,12 +82,15 @@ public class Translator {
 		String ins = scan();
 		
 		try {
+			
+			// All Instruction classes begin with its name, followed by "Instruction"
+			
 			ins = "sml." + ins.substring(0,1).toUpperCase() + ins.substring(1) + "Instruction";
 			Class<?> instructionClass = Class.forName(ins);
 			Constructor<?>[] constructors = instructionClass.getConstructors();
 			
 			// There are two constructors per class, a default and 'the one we want...'
-			// First parameter is always label, followed by a series of integers/strings
+			// First parameter is always label, followed by a series of variables
 			
 			Constructor<?> classConstructor = constructors[1];
 			int numOfParameters = classConstructor.getParameterCount();
@@ -104,7 +107,6 @@ public class Translator {
 				else
 					parametersToPass[i] = scanInt();
 			}
-			
 			
 			return (Instruction) classConstructor.newInstance(parametersToPass);
 			

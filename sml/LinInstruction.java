@@ -1,7 +1,7 @@
 package sml;
 
 /**
- * This class ....
+ * This class stores an integer value in the specified register
  * 
  * @author Michael De Guzman
  */
